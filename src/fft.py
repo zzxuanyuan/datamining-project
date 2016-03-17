@@ -20,15 +20,29 @@ fftx = fft(accx)
 ffty = fft(accy)
 fftz = fft(accz)
 
+# --- write fft and accelerometer data to csv files --- #
+flist    = zip(np.abs(fftx),np.abs(ffty),np.abs(fftz))
+farray   = np.asarray(flist)
+alist    = zip(accx,accy,accz)
+aarray   = np.asarray(alist)
+
+fname = ['FrequencyX','FrequencyY','FrequencyZ']
+fft   = pd.DataFrame(farray,columns=fname)
+acc   = df[['accelerometerAccelerationX','accelerometerAccelerationY','accelerometerAccelerationZ']]
+fft.to_csv('fft.csv',sep=',',index=False)
+acc.to_csv('acc.csv',sep=',',index=False)
+
 # --- frequency spectrum of Accelerometer{X,Y,Z}, frequency in -33~33 Hz --- #
-samx = np.linspace(-33.0, 33.0, num=accx.size)
-samy = np.linspace(-33.0, 33.0, num=accy.size)
-samz = np.linspace(-33.0, 33.0, num=accz.size)
+samx = np.linspace(-33.0, 33.0, num=accx.size-1)
+samy = np.linspace(-33.0, 33.0, num=accy.size-1)
+samz = np.linspace(-33.0, 33.0, num=accz.size-1)
 
 # --- fft{x,y,z} are complex number and abs calculate the modulus (x^2+y^2)^-2 --- #
-valx = np.abs(fftx[0:accx.size])
-valy = np.abs(ffty[0:accy.size])
-valz = np.abs(fftz[0:accz.size])
+# --- fft[0] is the sum of all samples in time domain by definition (fftx[0]=sum(accx) --- #
+# --- fft[1:N-1] are samples in frequency domain --- #
+valx = np.abs(fftx[1:accx.size])
+valy = np.abs(ffty[1:accy.size])
+valz = np.abs(fftz[1:accz.size])
 
 # --- time samples of Accelerometer{X,Y,Z} the unit is second --- #
 timx = np.linspace(0.0, accx.size/33, num=accx.size)
