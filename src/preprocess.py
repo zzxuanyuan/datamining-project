@@ -11,8 +11,6 @@ freq = 33 # 33 Hz ( there are 33 samples within a second )
 
 # --- determine activity by file name --- #
 name = sys.argv[1]
-print "naem",name
-print "name[0:3]",name[0:3]
 sit = "sit"
 stand = "stand"
 run = "run"
@@ -45,8 +43,6 @@ accz = df['accelerometerAccelerationZ']
 tot = accx.count()
 
 winCount = tot/(winSize/2)-1
-print "winCount=",winCount
-print "Activity=",activity
 # --- Create empty file --- #
 fname = ['DC X','Time Mean X','Power X','Frequency-domain Entropy X','DC Y','Time Mean Y','Power Y','Frequency-domain Entropy Y','DC Z','Time Mean Z','Power Z','Frequency-domain Entropy Z','Activity']
 fdf = pd.DataFrame(data=np.zeros((0,len(fname))), columns=fname)
@@ -68,11 +64,7 @@ for winIndex in range(0,winCount):
 	featureList.extend(featureY)
 	featureList.extend(featureZ)
 	featureList.extend([activity])
-	print "featureList=",featureList
 	dftemp = pd.DataFrame([featureList], columns=fname)
-	print "dftemp:",dftemp
 	fdf = fdf.append(dftemp,ignore_index=True)
-	print "fdf:",fdf
 
-print fdf
 fdf.to_csv(path_or_buf=sys.argv[3],sep=',',index=False)
