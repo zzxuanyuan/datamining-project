@@ -15,7 +15,7 @@ def CalFreqPower(winDataFreq):
 	power = 0
 	for i in range(0,len(winDataFreq)):
 		power += math.pow(winDataFreq[i],2)
-	return power
+	return math.log(power,10)
 
 def CalFreqEntropy(winDataFreq):
 	N         = len(winDataFreq)
