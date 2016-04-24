@@ -7,6 +7,10 @@ This is our project for CSCE474/874 Intro to Data Mining. Our project is to iden
 2. preprocess.py is to extract our raw data to formatted data with features as attributes.
 3. We completely separate DC component from other FFT samples because this value(fft[0]) is very large and also very important to evaluate as a new feature.
 4. One of the features is called Power, this feature is the power of all frequency coefficients except the DC component. We identify the values of this feature are relatively small (10^-5~10^-6), and therefore we use logarithmic of base 10 to represent this feature.
+5. hmm.py implements Gaussian HMM model by hmmlearn library https://github.com/hmmlearn/hmmlearn. It can handle any data time even like continuous time series. It plots four figures. The first figure is estimated state sequence from training data; the second figure is actual labels from training data; the third figure is estimated state sequence from test data; the fourth figure is actual labels from test data.
+
+# test directory
+1. test\_hmm.py is an example provided in seqlearn library https://github.com/larsmans/seqlearn. This library is lack of maintainance and has been deprecated from scikit-tool. Additionally, it can only support nominal data type (MultinominalHMM). We consider it not appropriate for our research. But this toy test program help us get more depth of understanding HMM.
 
 # data directory
 1. It contains collected data from SensorLog.
